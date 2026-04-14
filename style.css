@@ -1,0 +1,168 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: black;
+}
+
+header {
+  height: 185px;
+}
+
+.center img {
+  display: block;
+  max-width: 100%;
+  width: 600px;
+  margin: 10px auto;
+}
+
+.tier-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: black;
+  width: 80%;
+  min-width: 450px;
+  height: 550px;
+  margin: 10px auto;
+  border: 1px solid yellow;
+}
+
+.tier {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid yellow;
+}
+
+.tier:last-child {
+  border-bottom: none;
+}
+
+.letter {
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  width: 50px;
+  background-color: rgb(112, 166, 168);
+  text-align: center;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.items {
+  display: flex;
+  flex: 1;
+  height: inherit;
+}
+
+.character-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 100%;
+  padding-bottom: 20px;
+}
+
+.character-card {
+  width: 200px;
+  max-width: 100%;
+  height: 250px;
+  border-radius: 10px;
+  border: 1px solid yellow;
+  position: relative;
+  /* Preserve 3D works by maintaining the 3D space for child elements */
+  transform-style: preserve-3d;
+  cursor: grab;
+}
+
+.character-card:active {
+  cursor: grabbing;
+}
+
+.img-char-container {
+  width: 100%;
+  height: 80%;
+  border-radius: 5px;
+}
+
+.img-char-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.name {
+  font-size: 1.25rem;
+  margin: 10px 0;
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 5px;
+  /* Backface visibility is a CSS property that 
+  controls whether an element is visible when facing away from the user */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  text-align: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  gap: 8px;
+}
+
+.card-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-details li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 6px;
+}
+
+.label {
+  color: #888;
+  font-weight: 500;
+}
+
+.value {
+  color: #222;
+  font-weight: 400;
+  text-align: right;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
