@@ -1,26 +1,53 @@
-// API & Animation Initialization
-const url = "https://rickandmortyapi.com/api/character";
 const { animate, createDraggable, mapTo, utils } = anime;
 
 // DOM ELEMENTS
 const container = document.querySelector(".character-container");
+const paginationContainer = document.querySelector(".pagination");
+const paginationButtons = document.querySelectorAll(".pagination-button");
+const [prevBtn, pageBtn, nextBtn] = paginationButtons;
+
+let characters = [];
+let currentPage = 1;
+let totalPages = 0;
+prevBtn.disabled = true;
 
 const handleAPICall = async () => {
   try {
+    const url = `https://rickandmortyapi.com/api/character/?page=${currentPage}`;
     const response = await fetch(url);
+    console.log(url);
     const data = await response.json();
     console.log(data);
-    return data.results;
+    characters = data.results;
+    totalPages = data.info.pages;
   } catch (error) {
     console.error(error);
   }
 };
 
-const displayCharacters = async () => {
-  // Fetch characters from API
-  const characters = await handleAPICall();
+const updatePage = async (page) => {
+  currentPage = page;
+  pageBtn.textContent = currentPage;
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
+  await displayCharacters();
+};
 
+prevBtn.onclick = () => {
+  if (currentPage > 1) updatePage(currentPage - 1);
+};
+
+nextBtn.onclick = () => {
+  updatePage(currentPage + 1);
+};
+
+// init middle button
+pageBtn.textContent = currentPage;
+
+const displayCharacters = async () => {
+  await handleAPICall();
   // For each character, create a card and append it to the container
+  container.innerHTML = "";
   characters.forEach((character) => {
     const card = document.createElement("div");
     card.classList.add("character-card", "square");
@@ -55,5 +82,4 @@ const displayCharacters = async () => {
   });
 };
 
-// Event Listeners
 displayCharacters();
