@@ -1,3 +1,4 @@
+// Initialize animejs
 const { animate, createDraggable, mapTo, utils } = anime;
 
 // DOM ELEMENTS
@@ -6,18 +7,22 @@ const paginationContainer = document.querySelector(".pagination");
 const paginationButtons = document.querySelectorAll(".pagination-button");
 const [prevBtn, pageBtn, nextBtn] = paginationButtons;
 
+// Initializers for data
 let characters = [];
 let currentPage = 1;
 let totalPages = 0;
 prevBtn.disabled = true;
+pageBtn.textContent = currentPage;
 
+// Handles API Call to Rick and Morty API
 const handleAPICall = async () => {
   try {
+    // Takes in current page
     const url = `https://rickandmortyapi.com/api/character/?page=${currentPage}`;
     const response = await fetch(url);
-    console.log(url);
     const data = await response.json();
-    console.log(data);
+
+    // Sets character array and total # of pages
     characters = data.results;
     totalPages = data.info.pages;
   } catch (error) {
@@ -25,6 +30,7 @@ const handleAPICall = async () => {
   }
 };
 
+// Updates page and recalls displayCharacters function after
 const updatePage = async (page) => {
   currentPage = page;
   pageBtn.textContent = currentPage;
@@ -40,9 +46,6 @@ prevBtn.onclick = () => {
 nextBtn.onclick = () => {
   updatePage(currentPage + 1);
 };
-
-// init middle button
-pageBtn.textContent = currentPage;
 
 const displayCharacters = async () => {
   await handleAPICall();
@@ -82,4 +85,5 @@ const displayCharacters = async () => {
   });
 };
 
+// Calls displayCharacters function onMount
 displayCharacters();
